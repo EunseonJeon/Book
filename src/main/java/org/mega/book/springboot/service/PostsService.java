@@ -44,4 +44,10 @@ public class PostsService {
                 // Posts 객체를 이용해 Dto객체를 생성하기 때문에 매개변수가 포함된 생성자를 별도로 만들어야 함!
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        postsRepository.delete(posts);
+    }
 }
